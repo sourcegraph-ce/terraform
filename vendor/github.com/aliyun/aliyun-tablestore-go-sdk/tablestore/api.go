@@ -7,12 +7,12 @@ import (
 	"fmt"
 	"github.com/aliyun/aliyun-tablestore-go-sdk/tablestore/otsprotocol"
 	"github.com/golang/protobuf/proto"
+	"io"
 	"math/rand"
 	"net"
 	"net/http"
-	"time"
-	"io"
 	"strings"
+	"time"
 )
 
 const (
@@ -41,12 +41,12 @@ const (
 	deleteSearchIndexUri               = "/DeleteSearchIndex"
 	describeSearchIndexUri             = "/DescribeSearchIndex"
 
-	createIndexUri                     = "/CreateIndex"
-	dropIndexUri                       = "/DropIndex"
+	createIndexUri = "/CreateIndex"
+	dropIndexUri   = "/DropIndex"
 
-	createlocaltransactionuri          = "/StartLocalTransaction"
-	committransactionuri               = "/CommitTransaction"
-	aborttransactionuri                = "/AbortTransaction"
+	createlocaltransactionuri = "/StartLocalTransaction"
+	committransactionuri      = "/CommitTransaction"
+	aborttransactionuri       = "/AbortTransaction"
 )
 
 // Constructor: to create the client of TableStore service.
@@ -177,7 +177,7 @@ func getNextPause(tableStoreClient *TableStoreClient, err error, count uint, end
 	if retry {
 		value := lastInterval*2 + tableStoreClient.random.Int63n(DefaultRetryInterval-1) + 1
 		if value > MaxRetryInterval {
-			value =  MaxRetryInterval
+			value = MaxRetryInterval
 		}
 
 		return value
@@ -211,7 +211,7 @@ func isIdempotent(action string) bool {
 	if action == batchGetRowUri || action == describeTableUri ||
 		action == getRangeUri || action == getRowUri ||
 		action == listTableUri || action == listStreamUri ||
-			action == getStreamRecordUri || action == describeStreamUri {
+		action == getStreamRecordUri || action == describeStreamUri {
 		return true
 	} else {
 		return false
@@ -284,7 +284,7 @@ func (tableStoreClient *TableStoreClient) CreateTable(request *CreateTableReques
 
 	if len(request.TableMeta.DefinedColumns) > 0 {
 		for _, value := range request.TableMeta.DefinedColumns {
-			req.TableMeta.DefinedColumn = append(req.TableMeta.DefinedColumn, &otsprotocol.DefinedColumnSchema{Name: &value.Name, Type: value.ColumnType.ConvertToPbDefinedColumnType().Enum() })
+			req.TableMeta.DefinedColumn = append(req.TableMeta.DefinedColumn, &otsprotocol.DefinedColumnSchema{Name: &value.Name, Type: value.ColumnType.ConvertToPbDefinedColumnType().Enum()})
 		}
 	}
 

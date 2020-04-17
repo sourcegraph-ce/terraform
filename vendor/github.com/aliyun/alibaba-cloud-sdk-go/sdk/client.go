@@ -484,7 +484,7 @@ func (client *Client) DoActionWithSigner(request requests.AcsRequest, response r
 
 	var httpResponse *http.Response
 	for retryTimes := 0; retryTimes <= client.config.MaxRetryTime; retryTimes++ {
-		if proxy != nil && proxy.User != nil{
+		if proxy != nil && proxy.User != nil {
 			if password, passwordSet := proxy.User.Password(); passwordSet {
 				httpRequest.SetBasicAuth(proxy.User.Username(), password)
 			}

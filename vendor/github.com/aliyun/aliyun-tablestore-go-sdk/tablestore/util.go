@@ -483,16 +483,16 @@ func (comparatorType *ComparatorType) ConvertToPbComparatorType() otsprotocol.Co
 
 func (columnType DefinedColumnType) ConvertToPbDefinedColumnType() otsprotocol.DefinedColumnType {
 	switch columnType {
-		case DefinedColumn_INTEGER:
-			return otsprotocol.DefinedColumnType_DCT_INTEGER
-		case DefinedColumn_DOUBLE:
-			return otsprotocol.DefinedColumnType_DCT_DOUBLE
-		case DefinedColumn_BOOLEAN:
-			return otsprotocol.DefinedColumnType_DCT_BOOLEAN
-		case DefinedColumn_STRING:
-			return otsprotocol.DefinedColumnType_DCT_STRING
-		default:
-			return otsprotocol.DefinedColumnType_DCT_BLOB
+	case DefinedColumn_INTEGER:
+		return otsprotocol.DefinedColumnType_DCT_INTEGER
+	case DefinedColumn_DOUBLE:
+		return otsprotocol.DefinedColumnType_DCT_DOUBLE
+	case DefinedColumn_BOOLEAN:
+		return otsprotocol.DefinedColumnType_DCT_BOOLEAN
+	case DefinedColumn_STRING:
+		return otsprotocol.DefinedColumnType_DCT_STRING
+	default:
+		return otsprotocol.DefinedColumnType_DCT_BLOB
 	}
 }
 
@@ -509,18 +509,18 @@ func (loType *LogicalOperator) ConvertToPbLoType() otsprotocol.LogicalOperator {
 
 func ConvertToPbCastType(variantType VariantType) *otsprotocol.VariantType {
 	switch variantType {
-		case Variant_INTEGER:
-			return otsprotocol.VariantType_VT_INTEGER.Enum()
-		case Variant_DOUBLE:
-			return otsprotocol.VariantType_VT_DOUBLE.Enum()
-		case Variant_STRING:
-			return otsprotocol.VariantType_VT_STRING.Enum()
-		default:
-			panic("invalid VariantType")
+	case Variant_INTEGER:
+		return otsprotocol.VariantType_VT_INTEGER.Enum()
+	case Variant_DOUBLE:
+		return otsprotocol.VariantType_VT_DOUBLE.Enum()
+	case Variant_STRING:
+		return otsprotocol.VariantType_VT_STRING.Enum()
+	default:
+		panic("invalid VariantType")
 	}
 }
 
-func NewValueTransferRule(regex string, vt VariantType) *ValueTransferRule{
+func NewValueTransferRule(regex string, vt VariantType) *ValueTransferRule {
 	return &ValueTransferRule{Regex: regex, Cast_type: vt}
 }
 
@@ -539,7 +539,7 @@ func NewSingleColumnValueFilter(condition *SingleColumnCondition) *otsprotocol.S
 	filter.FilterIfMissing = proto.Bool(condition.FilterIfMissing)
 	filter.LatestVersionOnly = proto.Bool(condition.LatestVersionOnly)
 	if condition.TransferRule != nil {
-		filter.ValueTransRule = &otsprotocol.ValueTransferRule{ Regex: proto.String(condition.TransferRule.Regex), CastType: ConvertToPbCastType(condition.TransferRule.Cast_type) }
+		filter.ValueTransRule = &otsprotocol.ValueTransferRule{Regex: proto.String(condition.TransferRule.Regex), CastType: ConvertToPbCastType(condition.TransferRule.Cast_type)}
 	}
 	return filter
 }
@@ -593,7 +593,7 @@ func (otsClient *TableStoreClient) postReq(req *http.Request, url string) ([]byt
 
 func rawHttpToOtsError(code int, body []byte, reqId string) *OtsError {
 	oerr := &OtsError{
-		Message: string(body),
+		Message:   string(body),
 		RequestId: reqId,
 	}
 	if code >= 500 && code < 600 {
@@ -606,8 +606,8 @@ func rawHttpToOtsError(code int, body []byte, reqId string) *OtsError {
 
 func pbErrToOtsError(pbErr *otsprotocol.Error, reqId string) *OtsError {
 	return &OtsError{
-		Code:    pbErr.GetCode(),
-		Message: pbErr.GetMessage(),
+		Code:      pbErr.GetCode(),
+		Message:   pbErr.GetMessage(),
 		RequestId: reqId,
 	}
 }
@@ -947,12 +947,12 @@ func (request *CreateTableRequest) AddIndexMeta(meta *IndexMeta) {
 }
 
 func (meta *IndexMeta) ConvertToPbIndexMeta() *otsprotocol.IndexMeta {
-	return &otsprotocol.IndexMeta {
-		Name: &meta.IndexName,
-		PrimaryKey:  meta.Primarykey,
-		DefinedColumn:  meta.DefinedColumns,
-		IndexUpdateMode:  otsprotocol.IndexUpdateMode_IUM_ASYNC_INDEX.Enum(),
-		IndexType:        otsprotocol.IndexType_IT_GLOBAL_INDEX.Enum(),
+	return &otsprotocol.IndexMeta{
+		Name:            &meta.IndexName,
+		PrimaryKey:      meta.Primarykey,
+		DefinedColumn:   meta.DefinedColumns,
+		IndexUpdateMode: otsprotocol.IndexUpdateMode_IUM_ASYNC_INDEX.Enum(),
+		IndexType:       otsprotocol.IndexType_IT_GLOBAL_INDEX.Enum(),
 	}
 }
 
@@ -965,7 +965,7 @@ func ConvertPbIndexTypeToIndexType(indexType *otsprotocol.IndexType) IndexType {
 	}
 }
 func ConvertPbIndexMetaToIndexMeta(meta *otsprotocol.IndexMeta) *IndexMeta {
-	indexmeta := &IndexMeta {
+	indexmeta := &IndexMeta{
 		IndexName: *meta.Name,
 		IndexType: ConvertPbIndexTypeToIndexType(meta.IndexType),
 	}

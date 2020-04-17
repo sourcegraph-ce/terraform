@@ -35,7 +35,7 @@ func flatten(result map[string]string, prefix string, v reflect.Value) {
 			result[prefix] = "false"
 		}
 	case reflect.Int:
-		result[prefix] = fmt.Sprintf("%d", v.Int())
+		result[prefix] = strconv.Itoa(v.Int())
 	case reflect.Map:
 		flattenMap(result, prefix, v)
 	case reflect.Slice:
@@ -64,7 +64,7 @@ func flattenMap(result map[string]string, prefix string, v reflect.Value) {
 func flattenSlice(result map[string]string, prefix string, v reflect.Value) {
 	prefix = prefix + "."
 
-	result[prefix+"#"] = fmt.Sprintf("%d", v.Len())
+	result[prefix+"#"] = strconv.Itoa(v.Len())
 	for i := 0; i < v.Len(); i++ {
 		flatten(result, fmt.Sprintf("%s%d", prefix, i), v.Index(i))
 	}

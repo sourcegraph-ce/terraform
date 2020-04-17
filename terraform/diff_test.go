@@ -1193,7 +1193,7 @@ func TestInstanceDiffSame(t *testing.T) {
 	}
 
 	for i, tc := range cases {
-		t.Run(fmt.Sprintf("%d", i), func(t *testing.T) {
+		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			same, reason := tc.One.Same(tc.Two)
 			if same != tc.Same {
 				t.Fatalf("%d: expected same: %t, got %t (%s)\n\n one: %#v\n\ntwo: %#v",

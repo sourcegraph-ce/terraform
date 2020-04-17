@@ -74,7 +74,7 @@ func TestState(t *testing.T) {
 	}
 
 	for i, tt := range tests {
-		t.Run(fmt.Sprintf("%d", i), func(t *testing.T) {
+		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			got := State(tt.State)
 			if got != tt.Want {
 				t.Errorf(

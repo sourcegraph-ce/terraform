@@ -77,7 +77,7 @@ func (h handler) serveAuthz(resp http.ResponseWriter, req *http.Request) {
 
 	respBody := fmt.Sprintf(`<a href="%s">Log In and Consent</a>`, html.EscapeString(redirectURL.String()))
 	resp.Header().Set("Content-Type", "text/html")
-	resp.Header().Set("Content-Length", fmt.Sprintf("%d", len(respBody)))
+	resp.Header().Set("Content-Length", strconv.Itoa(len(respBody)))
 	resp.Header().Set("X-Redirect-To", redirectURL.String()) // For robotic clients, using webbrowser.MockLauncher
 	resp.WriteHeader(200)
 	resp.Write([]byte(respBody))
