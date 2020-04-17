@@ -1662,7 +1662,7 @@ func TestResource_migrateAndUpgrade(t *testing.T) {
 	}
 
 	for i, s := range testStates {
-		t.Run(fmt.Sprintf("%d", i), func(t *testing.T) {
+		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			newState, err := r.Refresh(s, nil)
 			if err != nil {
 				t.Fatal(err)

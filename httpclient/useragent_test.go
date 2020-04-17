@@ -29,7 +29,7 @@ func TestUserAgentString_env(t *testing.T) {
 		{fmt.Sprintf("%s test/3", expectedBase), " test/3 "},
 		{fmt.Sprintf("%s test/4", expectedBase), "test/4 \n"},
 	} {
-		t.Run(fmt.Sprintf("%d", i), func(t *testing.T) {
+		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			if c.additional == "" {
 				os.Unsetenv(uaEnvVar)
 			} else {
@@ -66,7 +66,7 @@ func TestUserAgentAppendViaEnvVar(t *testing.T) {
 	}
 
 	for i, tc := range testCases {
-		t.Run(fmt.Sprintf("%d", i), func(t *testing.T) {
+		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			os.Unsetenv(uaEnvVar)
 			os.Setenv(uaEnvVar, tc.envVarValue)
 			givenUA := TerraformUserAgent("0.0.0")

@@ -103,7 +103,7 @@ func testResourceComputedSetRead(d *schema.ResourceData, meta interface{}) error
 
 	var set []interface{}
 	for i := 0; i < count; i++ {
-		set = append(set, fmt.Sprintf("%d", i))
+		set = append(set, strconv.Itoa(i))
 	}
 
 	d.Set("string_set", schema.NewSet(schema.HashString, set))

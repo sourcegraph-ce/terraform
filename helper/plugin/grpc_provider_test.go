@@ -1294,7 +1294,7 @@ func TestNormalizeNullValues(t *testing.T) {
 			Apply: true,
 		},
 	} {
-		t.Run(fmt.Sprintf("%d", i), func(t *testing.T) {
+		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			got := normalizeNullValues(tc.Dst, tc.Src, tc.Apply)
 			if !got.RawEquals(tc.Expect) {
 				t.Fatalf("\nexpected: %#v\ngot:      %#v\n", tc.Expect, got)
