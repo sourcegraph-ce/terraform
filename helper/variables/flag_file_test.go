@@ -75,7 +75,7 @@ foo = {
 	path := testTempFile(t)
 
 	for i, tc := range cases {
-		t.Run(fmt.Sprintf("%d", i), func(t *testing.T) {
+		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			var input []string
 			switch i := tc.Input.(type) {
 			case string:

@@ -31,5 +31,5 @@ func Strings(strings []string) string {
 		buf.WriteString(fmt.Sprintf("%s-", s))
 	}
 
-	return fmt.Sprintf("%d", String(buf.String()))
+	return strconv.Itoa(String(buf.String()))
 }

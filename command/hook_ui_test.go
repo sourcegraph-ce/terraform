@@ -299,7 +299,7 @@ func TestTruncateId(t *testing.T) {
 		},
 	}
 	for i, tc := range testCases {
-		testName := fmt.Sprintf("%d", i)
+		testName := strconv.Itoa(i)
 		t.Run(testName, func(t *testing.T) {
 			out := truncateId(tc.Input, tc.MaxLen)
 			if out != tc.Expected {
